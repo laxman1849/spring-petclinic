@@ -8,7 +8,7 @@ pipeline{
         stage('vcs') {
             steps {
                 git url: 'https://github.com/laxman1849/spring-petclinicpr12.git',
-                    branch: 'release'
+                    branch: 'develop'
             }
         }
         stage('package') {
@@ -31,11 +31,7 @@ pipeline{
                 sh "aws s3 sync /tmp/${JOB_NAME}/${BUILD_ID} s3://narayana-s3-bucket --acl public-read-write"
             }
         }
-        stage ('deployment') {
-            steps {
-                sh 'ansible-playbook -i hosts ./springpetclinic.yaml'
-            }
-        }
+        
     }
 
 }
